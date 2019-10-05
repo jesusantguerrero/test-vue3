@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+
+<script src="assets/vue.global.prod.js"></script>
+<script>
+    const { reactive, computed, ref } = Vue;
+
+    const App = {
+        setup() {
+            const count = ref(0)
+            const name = ref('')
+            const double = computed(() => count.value * 2)
+        
+            function increment() {
+                count.value++
+            }
+
+            function handleChange({target}) {
+                name.value = target.value
+            }
+        
+            return {
+                count,
+                name,
+                double,
+                increment,
+                handleChange
+            }
+        },
+
+        template: `
+            <div id="app">
+                <p> {{count}} - {{ double}}</p>
+                <button @click="increment"> Increment </button>
+                <input value="name" @input="handleChange"/>
+            </div>`
+    }
+
+  const app = Vue.createApp();
+  app.mount( App, document.querySelector('#app'));
+</script>
+
+</script>
+</html>
