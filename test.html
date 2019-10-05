@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+
+<script src="assets/vue.global.prod.js"></script>
+<script>
+    const { reactive, computed, ref } = Vue;
+
+    const App = {
+    template: `<div>
+      <button @click="addItem" id="test-button"> AddToList </button>
+
+      <ul>
+        <li v-for="(item, index) in testList" :key="index"> 
+          {{ item }}
+        </li>
+      </ul>
+    </div>
+    `,
+
+    setup() {
+      const testList = reactive([1])
+      
+      function addItem() {
+        const number = Number(testList.length) + 1; 
+        testList.push(number)
+      }
+
+      return {
+        testList,
+        addItem
+      }
+    }
+  }
+  const app = Vue.createApp();
+  app.mount( App, document.querySelector('#app'));
+</script>
+</html>
